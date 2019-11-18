@@ -5,3 +5,39 @@
 # Также она должна сообщать пользователю о невозможности деления на ноль, если он ввел его в качестве делителя.
 
 
+a, operation_label, b = None, None, None
+while operation_label != '0':
+    try:
+        a, operation_label, b = input('Введите выражение, которое хотите выполнить\n'
+                                  'Вы можете ввести два целых числа и знак операции между ними\n'
+                                  'Обратите внимание, что элементы должны быть разделены пробелом\n'
+                                  'Допускаются следующие операции:\n'
+                                  '0 -- выход из программы\n'
+                                  '+ -- сложение\n'
+                                  '- -- вычитание\n'
+                                  '* -- умножение\n'
+                                  '/ -- деление\n').split(' ')
+        try:
+            a = int(a)
+            b = int(b)
+            if operation_label == '0':
+                print('Программа завершает работу')
+            elif operation_label == '+':
+                result = a + b
+                print(f'{a} + {b} = {result}')
+            elif operation_label == '-':
+                result = a - b
+                print(f'{a} - {b} = {result}')
+            elif operation_label == '/':
+                result = a / b
+                print(f'{a} / {b} = {result}')
+            elif operation_label == '*':
+                result = a * b
+                print(f'{a} * {b} = {result}')
+
+        except ValueError:
+            print('ОШИБКА: Кажется, у вас проблема с вводом чисел. Перезапустите программу '
+                  'и введите целые числа, пожалуйста\n')
+
+    except ValueError:
+        print('ОШИБКА: Вы ввели некорректные значения, попробуйте еще раз \n')
