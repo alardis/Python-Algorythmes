@@ -5,7 +5,7 @@
 # Также она должна сообщать пользователю о невозможности деления на ноль, если он ввел его в качестве делителя.
 
 
-a, operation_label, b = None, None, None
+operation_label = None
 while operation_label != '0':
     try:
         a, operation_label, b = input('Введите выражение, которое хотите выполнить\n'
