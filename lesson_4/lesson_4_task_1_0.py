@@ -49,6 +49,16 @@ def get_max_from_min_1(size_x, size_y):
     # return max_min
 
 
+def get_max_from_min_2(size_x, size_y):
+    matrix = [[random.randint(0, 20) for _ in range(size_x)] for _ in range(size_y)]
+    min_list = []
+
+    [(lambda i: min_list.append(min([matrix[j][i] for j in range(len(matrix))])))(i) for i in range(len(matrix[0]))]
+
+    max_min = max(min_list)
+    # return max_min
+
+
 # cProfile.run('get_max_from_min(5, 5)')
 # result = get_max_from_min(400, 200)
 
