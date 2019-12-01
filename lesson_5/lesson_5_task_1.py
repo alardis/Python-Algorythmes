@@ -21,13 +21,25 @@ try:
         company_dict.update({company_name: Company_data(season_1=int(season_1_income), season_2=int(season_2_income),
                                                         season_3=int(season_3_income), season_4=int(season_4_income))})
 
-    print(company_dict)
     # считаем их денежки
     mean_sum = 0
     mean_dict = {}
     for name, data in company_dict.items():
         mean_income = (data.season_1 + data.season_2 + data.season_3 + data.season_4) / 4
         print(f'Прибыль компании {name} в среднем за год: {mean_income}')
+        mean_dict.update({name: mean_income})
+        mean_sum += mean_income
+
+    print('*' * 30)
+
+    # выводим их среднее
+    for name, income in mean_dict.items():
+        if income > (mean_sum / len(mean_dict)):
+            print(f'Доход "{name}" выше среднего')
+
+    for name, income in mean_dict.items():
+        if income < (mean_sum / len(mean_dict)):
+            print(f'Доход "{name}" ниже среднего')
 
 except ValueError:
     print('Что-то не так с вводом, будьте аккуратнее!')
