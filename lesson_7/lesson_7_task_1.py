@@ -10,7 +10,7 @@ import random
 
 
 size = 10
-unsorted_list = [random.randint(-size, size) for _ in range(size)]
+unsorted_list = [random.uniform(-100.0, 100.0) for _ in range(size)]
 print(f'Исходный массив: {unsorted_list}')
 
 
