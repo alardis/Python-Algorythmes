@@ -5,6 +5,8 @@
 import random
 
 
-size = 10
-my_list = [random.randint(0, 50) for _ in range(size)]
+size = 20
+my_list = [random.uniform(0.0, 50.0) for _ in range(size)]
 print(f'Исходный массив: {my_list}')
+
+
