@@ -22,7 +22,7 @@ list_mean = (list_max + list_min) // 2
 
 # формируем список с правой половиной сортированного массива. не надо их выстраивать,
 # они просто должны быть меньше серединного значения
-print(list_mean)
+# print(list_mean)
 list_less = []
 list_more = []
 my_list_copy = my_list[:]
@@ -34,21 +34,27 @@ for item in my_list_copy:
     else:
         list_more.append(item)
 
-print(f'Общий размер списка -- {len(my_list)}')
-print(f'list_less: {list_less}, размер -- {len(list_less)}')
-print(f'list_more: {list_more}, размер -- {len(list_more)}')
+# print(f'Общий размер списка -- {len(my_list)}')
+# print(f'list_less: {list_less}, размер -- {len(list_less)}')
+# print(f'list_more: {list_more}, размер -- {len(list_more)}')
 
 # мы не будем сортировать исходный массив. мы отсортируем его кусок. так можно, точно говорю
 if len(list_less) > (len(my_list) // 2):
     list_less.sort()
-    print(f'Мелиана списка моя: {list_less[len(my_list) // 2]}')
+    print(f'Медиана списка моя: {list_less[len(my_list) // 2]}')
 else:
     list_more.sort()
-    for item_more in list_more:
+    # print(f'Минимальный размер списка: {len(my_list) // 2}')
+    for item_more in list_more[:]:
         item_mean = min(list_more)
+        list_more.remove(item_mean)
         if len(list_less) < (len(my_list) // 2):
+            # print(f'У нас в списке {len(list_less)} элементов, но будем добавлять {item_mean}')
             list_less.append(item_mean)
         else:
-            print(f'Мелиана списка моя: {item_mean}')
+            # print(f'Список меньших значений: {list_less}')
+            # print(f'Список больших значений, сортированный:  {sorted(list_more)}')
+            print(f'Медиана списка моя: {item_mean}')
+            # print(f'В этом списке: {sorted(my_list)}, центральный элемент -- {sorted(my_list)[20]}')
             break
 
