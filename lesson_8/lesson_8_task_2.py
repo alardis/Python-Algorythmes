@@ -2,3 +2,57 @@
 # которые необходимо обойти.
 
 
+import random
+
+
+# функция генерации графа
+def get_graph(n_edges):
+    my_graph = {}
+    for node in range(n_edges):
+        node_list = []
+        for node_second in range(n_edges):
+            if node != node_second:
+                node_list.append(random.randint(0, n_edges))
+            else:
+                node_list.append(0)
+        my_graph.update({node: node_list})
+
+    for key, value in my_graph.items():
+        print(f'{key:3}:  {value}')
+    print()
+    print('*' * 50)
+    return my_graph
+
+
+# реализация алгоритма Дейкстры
+def deykstra_ench(my_graph, start):
+    length = len(my_graph)
+    is_visited = [False] * length
+    cost = [float('inf')] * length
+    parent = [-1] * length
+
+    cost[start] = 0
+    min_cost = 0
+
+    while min_cost < float('inf'):
+        is_visited[start] = True
+
+        for i, vertex in enumerate(my_graph[start]):
+            if vertex != 0 and not is_visited[i]:
+                if cost[i] > vertex + cost[start]:
+                    cost[i] = vertex + cost[start]
+                    parent[i] = start
+
+        min_cost = float('inf')
+        for i in range(length):
+            if min_cost > cost[i] and not is_visited[i]:
+                min_cost = cost[i]
+                start = i
+
+    return cost
+
+
+point = int(input('Из какой вершины идти:  '))
+n = random.randint(2, 20)
+print('\n' + '*' * 50)
+print(deykstra_ench(get_graph(n), point))
