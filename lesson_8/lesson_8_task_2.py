@@ -3,6 +3,7 @@
 
 
 import random
+import networkx as nx
 
 
 # функция генерации графа
@@ -33,13 +34,21 @@ def deykstra_ench(my_graph, start):
 
     cost[start] = 0
     min_cost = 0
+    route_dict = {}
+    route_dict.update({start: 'start'})
 
     while min_cost < float('inf'):
         is_visited[start] = True
 
+        route_list = []
         for i, vertex in enumerate(my_graph[start]):
             if vertex != 0 and not is_visited[i]:
+                print(f'Рассматриваем вершину {i}, расстояние до нее -- {vertex}')
+                route_list.append(i)
                 if cost[i] > vertex + cost[start]:
+                    print(f'Прошлое расстояние {cost[i]}, нынешнее -- {vertex + cost[start]}')
+                    print(f'route_list: {route_list}')
+                    route_dict.update({i: route_list})
                     cost[i] = vertex + cost[start]
                     parent[i] = start
 
@@ -49,10 +58,18 @@ def deykstra_ench(my_graph, start):
                 min_cost = cost[i]
                 start = i
 
-    return cost
+    return cost, route_dict
 
 
 point = int(input('Из какой вершины идти:  '))
 n = random.randint(2, 20)
 print('\n' + '*' * 50)
-print(deykstra_ench(get_graph(n), point))
+graph = deykstra_ench(get_graph(n), point)
+print(graph)
+
+
+# визуализация графа
+g_vis = nx.Graph()
+g_vis.add_nodes_from(range(n))
+g_vis.add_weighted_edges_from(graph)
+g_vis.draw()
