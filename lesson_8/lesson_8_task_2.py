@@ -4,6 +4,7 @@
 
 import random
 import networkx as nx
+import numpy as np
 
 
 # функция генерации графа
@@ -64,12 +65,10 @@ def deykstra_ench(my_graph, start):
 point = int(input('Из какой вершины идти:  '))
 n = random.randint(2, 20)
 print('\n' + '*' * 50)
-graph = deykstra_ench(get_graph(n), point)
-print(graph)
-
+graph = get_graph(n)
+routes = deykstra_ench(graph, point)
+print(routes)
 
 # визуализация графа
-g_vis = nx.Graph()
-g_vis.add_nodes_from(range(n))
-g_vis.add_weighted_edges_from(graph)
-g_vis.draw()
+g_vis = nx.from_dict_of_lists(graph)
+nx.draw(g_vis)
