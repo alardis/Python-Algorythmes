@@ -36,8 +36,8 @@ s = input('Введите строку для поиска, в ней будем
 sub_s = input('Введите подстроку, которую будем искать в строке:\n')
 
 search_results, count = sub_search(s, sub_s)
-print(f'Подстрока всего встречается {count} раз. И вот они:')
-if type(search_results) == list:
+if len(search_results) > 0:
+    print(f'Подстрока всего встречается {count} раз. И вот они:')
     for record in search_results:
         print(record)
 else:
