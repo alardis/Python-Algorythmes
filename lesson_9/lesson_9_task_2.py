@@ -1,6 +1,9 @@
 # Закодируйте любую строку по алгоритму Хаффмана.
 
 
+from copy import deepcopy
+
+
 class MyNode:
     def __init__(self, left=None, right=None, value=None, weight=0):
         self.left = left
@@ -8,7 +11,7 @@ class MyNode:
         self.value = value
         self.weight = weight
 
-    def __str__(self, level=0, ret=None):
+    def __str__(self):
         return f'{self.value}({self.weight})'
 
 
@@ -35,9 +38,33 @@ def huffman_encode(s):
         symbol_dict.update({node: node.weight})
         symbol_dict = {k: v for k, v in sorted(symbol_dict.items(), key=lambda item: item[1], reverse=True)}
 
-    # print(symbol_dict)
-    if len(symbol_dict) == 1:
-        print(symbol_dict.popitem()[0])
+    # возможно, здесь мы захотим убедиться, что дерево у нас и вправду есть
+    # if len(symbol_dict) == 1:
+    #     print(symbol_dict.popitem()[0])
+
+    # время закодировать строку по дереву
+    encoded_string = ''
+    node_base = symbol_dict.popitem()[0]
+    for letter in s:
+        letter_encoded = False
+        letter_code = ''
+        node = deepcopy(node_base)
+        while not letter_encoded:
+            if letter in str(node.left) and letter != str(node.left):
+                letter_code = f'{letter_code}{"0"}'
+                node = node.left
+            elif letter in str(node.right) and letter != str(node.right):
+                letter_code = f'{letter_code}{"1"}'
+                node = node.right
+            elif letter in str(node.left) and letter == str(node.left):
+                letter_code = f'{letter_code}{"0"}'
+                letter_encoded = True
+            elif letter in str(node.right) and letter == str(node.right):
+                letter_code = f'{letter_code}{"1"}'
+                letter_encoded = True
+        encoded_string = f'{encoded_string}{letter_code} '
+
+    print(f'Закодированная строка {s}:\n{encoded_string}')
 
 
 string_to_encode = 'beep boop beer!'
